@@ -103,9 +103,9 @@
                 cs += (i + 1) + "," + finalArrObj[i].ComputerHeads + "," + finalArrObj[i].PlayerHeads + ","
                 cs += "\r\n"
                 if (i == 3) {
-                    cs += " "+","+"TotalComputerHeads" + "," + "TotalPlayerHeads"
+                    cs += "TotalComputerHeads" + "," + "TotalPlayerHeads"
                     cs += "\r\n"
-                    cs += " "+","+finalArrObj[i + 1].TotalComputerHeads + "," + finalArrObj[i + 1].TotalPlayerHeads
+                    cs += finalArrObj[i + 1].TotalComputerHeads + "," + finalArrObj[i + 1].TotalPlayerHeads
                     cs += "\r\n"
                 }
             }

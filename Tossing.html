@@ -15,7 +15,16 @@
         player = []
         result = []
         tempRes = {}
-
+        function win(compHeads, plyrHeads) {
+            if (compHeads > plyrHeads) {
+                console.log("Winner is Computer");
+            } else if (compHeads < plyrHeads) {
+                console.log("Winner is Player");
+            } else if (compHeads = plyrHeads) {
+                console.log("...DRAW...");
+            }
+            console.log("------------------");
+        }
         const toss = () => {
             count = 1
             interval = setInterval(() => {
@@ -31,68 +40,34 @@
                 if (count == 10) {
                     console.log("Loading Results...");
 
-                    setTimeout(() => {
-                        tempComp = computer.slice(-10)
-                        tempPlyr = player.slice(-10)
-                        tempCompHeads = (tempComp.filter(side => side.includes("Heads"))).length
-                        tempPlyrHeads = (tempPlyr.filter(side => side.includes("Heads"))).length
-
-                        tempRes = {
-
-                            ComputerHeads: tempCompHeads,
-                            PlayerHeads: tempPlyrHeads,
-
-                        }
-                        result.push(tempRes)
-
-                        console.log("No of Heads by Coumputer", (tempCompHeads));
-                        console.log("No of Heads by Player", (tempPlyrHeads));
-                        win(tempCompHeads, tempPlyrHeads)
-
-                    }, 5000);
-
                     clearInterval(interval)
                 }
                 count++
             }, 1000)
 
         }
-        setTimeout(() => {
 
+        function roundRes(computer, player) {
+            setTimeout(() => {
+                tempComp = computer.slice(-10)
+                tempPlyr = player.slice(-10)
+                tempCompHeads = (tempComp.filter(side => side.includes("Heads"))).length
+                tempPlyrHeads = (tempPlyr.filter(side => side.includes("Heads"))).length
 
-            compHeads = (computer.filter(side => side.includes("Heads"))).length
-            plyrHeads = (player.filter(side => side.includes("Heads"))).length
-            tempRes = {
-                TotalComputerHeads: compHeads,
-                TotalPlayerHeads: plyrHeads,
-            }
-            result.push(tempRes)
-            console.log("Total No of Heads by Coumputer", (compHeads));
-            console.log("Total No of Heads by Player", (plyrHeads));
-           // console.table(result);
-            //console.log(result);
-            makecsv(result)
-            if (compHeads > plyrHeads) {
-                console.log("Final Winner is Computer🥇")
-            } else if (compHeads < plyrHeads) {
-                console.log("Final Winner is Player 🥇")
-            } else if (compHeads = plyrHeads) {
-                console.log("...DRAW...");
-            }
-            console.log("------------------");
+                tempRes = {
 
+                    ComputerHeads: tempCompHeads,
+                    PlayerHeads: tempPlyrHeads,
 
-        }, 60800);
+                }
+                result.push(tempRes)
 
-        function win(compHeads, plyrHeads) {
-            if (compHeads > plyrHeads) {
-                console.log("Winner is Computer");
-            } else if (compHeads < plyrHeads) {
-                console.log("Winner is Player");
-            } else if (compHeads = plyrHeads) {
-                console.log("...DRAW...");
-            }
-            console.log("------------------");
+                console.log("No of Heads by Coumputer", (tempCompHeads));
+                console.log("No of Heads by Player", (tempPlyrHeads));
+                win(tempCompHeads, tempPlyrHeads)
+
+            }, 15000);
+
         }
         function makecsv(finalArrObj) {
             cs = ""
@@ -119,22 +94,62 @@
             window.URL.revokeObjectURL(tempURL)
             activation.remove()
         }
+
         r = 1
-        console.log("Round ", r);
-
-        toss()
-        interval2 = setInterval(() => {
-
-            console.log("Round ", r + 1)
-
-            toss()
-
-            r++
-            if (r == 4) {
-                clearInterval(interval2)
+        new Promise((resolve) => {
+            if (r = 1) {
+                resolve(console.log("Round ", r))
             }
-            
-        }, 15100)
+        })
+
+            .then(function () {
+                toss()
+                roundRes(computer, player)
+
+                interval2 = setInterval(() => {
+
+                    console.log("Round ", r + 1)
+
+                    toss()
+                    roundRes(computer, player)
+
+                    r++
+                    if (r == 4) {
+                        clearInterval(interval2)
+                    }
+
+                }, 15050)
+
+            })
+
+            .then(function () {
+                setTimeout(() => {
+                    compHeads = (computer.filter(side => side.includes("Heads"))).length
+                    plyrHeads = (player.filter(side => side.includes("Heads"))).length
+                    tempRes = {
+                        TotalComputerHeads: compHeads,
+                        TotalPlayerHeads: plyrHeads,
+                    }
+                    result.push(tempRes)
+                    console.log("Total No of Heads by Coumputer", (compHeads));
+                    console.log("Total No of Heads by Player", (plyrHeads));
+                   // console.table(result);
+                    makecsv(result)
+                    //console.log(result);
+
+                    if (compHeads > plyrHeads) {
+                        console.log("Final Winner is Computer🥇")
+                    } else if (compHeads < plyrHeads) {
+                        console.log("Final Winner is Player 🥇")
+                    } else if (compHeads = plyrHeads) {
+                        console.log("...DRAW...");
+                    }
+                    console.log("------------------");
+
+
+                }, 60200);
+            })
+
 
 
     </script>
